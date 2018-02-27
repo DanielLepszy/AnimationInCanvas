@@ -29,7 +29,7 @@ function showCircleOnWindow() {
         circleY = Math.floor(Math.random() * (864 - 2 * circleSize) + circleSize);
         positionXCircle.push(circleX);
         positionYCircle.push(circleY);
-        allCircle();
+        
     }
 
     // for (var x = 1; x <= amountOfBigCircle; x++) {
@@ -40,13 +40,20 @@ function showCircleOnWindow() {
         for (var j = i + 1; j <= amountOfBigCircle - 1; j++) {
             if ((positionXCircle[i] - positionXCircle[j]) < 100 && (positionXCircle[i] - positionXCircle[j]) > -100) {
                 if ((positionYCircle[i] - positionYCircle[j]) < 100 && (positionYCircle[i] - positionYCircle[j]) > -100) {
-                    alert(positionXCircle[i] - positionXCircle[j]);
+                    circleX = Math.floor(Math.random() * (1536 - 2 * circleSize) + circleSize);
+                    circleY = Math.floor(Math.random() * (864 - 2 * circleSize) + circleSize);
+                    alert('poprawa');
+                    positionXCircle[i]=circleX;
+                    positionYCircle[j]=circleY;
+                    
                 }
                 // else{alert("dobrze")};
 
             }
         }
+        
     }
+    allCircle();
 }
 
 function table() {
@@ -55,15 +62,17 @@ function table() {
 }
 //Size of Circle
 function bigCircle() {
+    for (var i = 0; i <= amountOfBigCircle-1; i++) {
     ctx.beginPath();
-    ctx.arc(circleX, circleY, circleSize, 0*Math.PI,2*Math.PI);
+    ctx.arc(positionXCircle[i], positionYCircle[i], circleSize, 0*Math.PI,2*Math.PI);
     ctx.fillStyle = "blue";
     ctx.fill();
     ctx.beginPath();
-    ctx.arc(circleX, circleY, circleSize - 10, 0, 2 * Math.PI);
+    ctx.arc(positionXCircle[i], positionYCircle[i], circleSize - 10, 0, 2 * Math.PI);
     ctx.fillStyle = "black";
     ctx.fill();
     ctx.stroke();
+    }
 }
 
 function mediumCircle() {
