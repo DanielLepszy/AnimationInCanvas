@@ -7,7 +7,7 @@ canv.height = 864;
 const cw = canv.width
 const ch = canv.height
 const circleSize = 50;
-var amountOfBigCircle = 4;
+var amountOfBigCircle = 2;
 let amountOfCheckingPosition = 0;
 let circleX;
 let circleY;
@@ -15,63 +15,69 @@ let circleY;
 var positionXCircle = [];
 var positionYCircle = [];
 
-function allCircle() {
-    bigCircle();
-    // mediumCircle();
-    // smallCircle();
-}
 table();
 showCircleOnWindow();
-// allCircle();
-function showCircleOnWindow() {
-    for (var i = 1; i <= amountOfBigCircle; i++) {
-        circleX = Math.floor(Math.random() * (1536 - 2 * circleSize) + circleSize);
-        circleY = Math.floor(Math.random() * (864 - 2 * circleSize) + circleSize);
-        positionXCircle.push(circleX);
-        positionYCircle.push(circleY);
-        
-    }
-
-    // for (var x = 1; x <= amountOfBigCircle; x++) {
-    //     amountOfCheckingPosition += (amountOfBigCircle - 1);
-    //     amountOfBigCircle--;
-    // }
-    for (var i = 0; i <= amountOfBigCircle - 1; i++) {
-        for (var j = i + 1; j <= amountOfBigCircle - 1; j++) {
-            if ((positionXCircle[i] - positionXCircle[j]) < 100 && (positionXCircle[i] - positionXCircle[j]) > -100) {
-                if ((positionYCircle[i] - positionYCircle[j]) < 100 && (positionYCircle[i] - positionYCircle[j]) > -100) {
-                    circleX = Math.floor(Math.random() * (1536 - 2 * circleSize) + circleSize);
-                    circleY = Math.floor(Math.random() * (864 - 2 * circleSize) + circleSize);
-                    alert('poprawa');
-                    positionXCircle[i]=circleX;
-                    positionYCircle[j]=circleY;
-                    
-                }
-                // else{alert("dobrze")};
-
-            }
-        }
-        
-    }
-    allCircle();
-}
 
 function table() {
     ctx.fillStyle = "#212320"
     ctx.fillRect(0, 0, cw, ch);
 }
+
+function showCircleOnWindow() {
+    getPositionXY();
+    blockShowingCirclesOnTheSamePosition();
+    allCircle();
+}
+
+function allCircle() {
+    bigCircle();
+    // mediumCircle();
+    // smallCircle();
+}
+
+function randomPositions() {
+    circleX = Math.floor(Math.random() * (1536 - 2 * circleSize) + circleSize);
+    circleY = Math.floor(Math.random() * (864 - 2 * circleSize) + circleSize);
+}
+
+function getPositionXY() {
+    for (var i = 1; i <= amountOfBigCircle; i++) {
+        randomPositions()
+        positionXCircle.push(circleX);
+        positionYCircle.push(circleY);
+    }
+}
+
+function blockShowingCirclesOnTheSamePosition() {
+    for (var i = 0; i <= amountOfBigCircle - 1; i++) {
+        for (var j = i + 1; j <= amountOfBigCircle - 1; j++) {
+            if ((positionXCircle[i] - positionXCircle[j]) < 100 && (positionXCircle[i] - positionXCircle[j]) > -100) {
+                if ((positionYCircle[i] - positionYCircle[j]) < 100 && (positionYCircle[i] - positionYCircle[j]) > -100) {
+                    randomPositions()
+                    alert('poprawa');
+                    positionXCircle[i] = circleX;
+                    positionYCircle[j] = circleY;
+
+                }
+            }
+        }
+    }
+}
+
+
+
 //Size of Circle
 function bigCircle() {
-    for (var i = 0; i <= amountOfBigCircle-1; i++) {
-    ctx.beginPath();
-    ctx.arc(positionXCircle[i], positionYCircle[i], circleSize, 0*Math.PI,2*Math.PI);
-    ctx.fillStyle = "blue";
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(positionXCircle[i], positionYCircle[i], circleSize - 10, 0, 2 * Math.PI);
-    ctx.fillStyle = "black";
-    ctx.fill();
-    ctx.stroke();
+    for (var i = 0; i <= amountOfBigCircle - 1; i++) {
+        ctx.beginPath();
+        ctx.arc(positionXCircle[i], positionYCircle[i], circleSize, 0 * Math.PI, 2 * Math.PI);
+        ctx.fillStyle = "blue";
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(positionXCircle[i], positionYCircle[i], circleSize - 10, 0, 2 * Math.PI);
+        ctx.fillStyle = "black";
+        ctx.fill();
+        ctx.stroke();
     }
 }
 
