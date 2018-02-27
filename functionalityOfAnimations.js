@@ -8,12 +8,12 @@ const cw = canv.width
 const ch = canv.height
 const circleSize = 50;
 var amountOfBigCircle = 4;
-let amountOfCheckingPosition=0;
+let amountOfCheckingPosition = 0;
 let circleX;
 let circleY;
 
-var poistionXCircle = [];
-var poistionYCircle = [];
+var positionXCircle = [];
+var positionYCircle = [];
 
 function allCircle() {
     bigCircle();
@@ -23,22 +23,32 @@ function allCircle() {
 table();
 showCircleOnWindow();
 // allCircle();
-function showCircleOnWindow(){
-for (var i = 1; i <= amountOfBigCircle; i++) {
-    circleX = Math.floor(Math.random() * (1536 - 2 * circleSize) + circleSize);
-    circleY = Math.floor(Math.random() * (864 - 2 * circleSize) + circleSize);
-    poistionXCircle.push(circleX);
-    poistionYCircle.push(circleY);
-    allCircle();
+function showCircleOnWindow() {
+    for (var i = 1; i <= amountOfBigCircle; i++) {
+        circleX = Math.floor(Math.random() * (1536 - 2 * circleSize) + circleSize);
+        circleY = Math.floor(Math.random() * (864 - 2 * circleSize) + circleSize);
+        positionXCircle.push(circleX);
+        positionYCircle.push(circleY);
+        allCircle();
+    }
+
+    // for (var x = 1; x <= amountOfBigCircle; x++) {
+    //     amountOfCheckingPosition += (amountOfBigCircle - 1);
+    //     amountOfBigCircle--;
+    // }
+    for (var i = 0; i <= amountOfBigCircle - 1; i++) {
+        for (var j = i + 1; j <= amountOfBigCircle - 1; j++) {
+            if ((positionXCircle[i] - positionXCircle[j]) < 100 && (positionXCircle[i] - positionXCircle[j]) > -100) {
+                if ((positionYCircle[i] - positionYCircle[j]) < 100 && (positionYCircle[i] - positionYCircle[j]) > -100) {
+                    alert(positionXCircle[i] - positionXCircle[j]);
+                }
+                // else{alert("dobrze")};
+
+            }
+        }
+    }
 }
 
-for ( var x=1;x<=amountOfBigCircle;x++)
-{
-    amountOfCheckingPosition+=(amountOfBigCircle-1);
-    amountOfBigCircle--;
-}
-
-}
 function table() {
     ctx.fillStyle = "#212320"
     ctx.fillRect(0, 0, cw, ch);
@@ -46,7 +56,7 @@ function table() {
 //Size of Circle
 function bigCircle() {
     ctx.beginPath();
-    ctx.arc(circleX, circleY, circleSize, 0, 2 * Math.PI);
+    ctx.arc(circleX, circleY, circleSize, 0*Math.PI,2*Math.PI);
     ctx.fillStyle = "blue";
     ctx.fill();
     ctx.beginPath();
