@@ -7,8 +7,8 @@ canv.height = 864;
 const cw = canv.width
 const ch = canv.height
 const circleSize = 50;
-const amountOfBigCircle = 5;
-
+var amountOfBigCircle = 4;
+let amountOfCheckingPosition=0;
 let circleX;
 let circleY;
 
@@ -21,16 +21,24 @@ function allCircle() {
     // smallCircle();
 }
 table();
+showCircleOnWindow();
 // allCircle();
-
+function showCircleOnWindow(){
 for (var i = 1; i <= amountOfBigCircle; i++) {
-    circleX = Math.floor(Math.random() * (1536-2*circleSize) + circleSize);
-    circleY = Math.floor(Math.random() * (864-2*circleSize) + circleSize);
+    circleX = Math.floor(Math.random() * (1536 - 2 * circleSize) + circleSize);
+    circleY = Math.floor(Math.random() * (864 - 2 * circleSize) + circleSize);
     poistionXCircle.push(circleX);
     poistionYCircle.push(circleY);
     allCircle();
 }
 
+for ( var x=1;x<=amountOfBigCircle;x++)
+{
+    amountOfCheckingPosition+=(amountOfBigCircle-1);
+    amountOfBigCircle--;
+}
+
+}
 function table() {
     ctx.fillStyle = "#212320"
     ctx.fillRect(0, 0, cw, ch);
