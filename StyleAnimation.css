@@ -1,0 +1,96 @@
+/* html {
+    height: 100%;
+  }
+body
+{
+    width:100%;
+    height: 100%;
+    position:relative;
+}
+#animationCanvas
+{
+position:relative;
+top:0px;
+left:0px;
+width:1536px;
+height:864px;
+margin:0px;
+border:1px solid black
+}
+.smallCircle,
+.mediumCircle,
+.bigCircle {
+    background-color: black;
+    border: 3px solid rgb(25, 0, 255);
+    z-index: 100;
+}
+
+.smallCircle {
+    
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+
+}
+
+.mediumCircle {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.bigCircle 
+{
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+}
+/* #smallCircleNumber1
+{
+    position: absolute;
+    left:110px;
+    top:50px;
+} */
+/* #smallCircleNumber2
+{
+    position: absolute;
+    left:150px;
+    top:250px;
+}
+#smallCircleNumber3
+{
+    position: absolute;
+    left:111px;
+    top:180px;
+}
+#smallCircleNumber4
+{
+    position: absolute;
+    left:225px;
+    top:380px;
+}
+#smallCircleNumber5
+{
+    position: absolute;
+    left:25px;
+    top:280px;
+} */ 
+
+html {
+    margin:0;
+    padding:0;
+  }
+body
+{
+    margin:0;
+    padding:0;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color:grey;
+}
+#animationCanvas
+{
+    border: 4px solid black;
+}
