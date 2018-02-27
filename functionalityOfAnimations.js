@@ -7,9 +7,13 @@ canv.height = 864;
 const cw = canv.width
 const ch = canv.height
 const circleSize = 50;
-let circleX=Math.floor(Math.random()*1486+1);
-let circleY=Math.floor(Math.random()*824+1);
+const amountOfBigCircle = 5;
 
+let circleX;
+let circleY;
+
+var poistionXCircle = [];
+var poistionYCircle = [];
 
 function allCircle() {
     bigCircle();
@@ -17,7 +21,15 @@ function allCircle() {
     // smallCircle();
 }
 table();
-allCircle();
+// allCircle();
+
+for (var i = 1; i <= amountOfBigCircle; i++) {
+    circleX = Math.floor(Math.random() * (1536-2*circleSize) + circleSize);
+    circleY = Math.floor(Math.random() * (864-2*circleSize) + circleSize);
+    poistionXCircle.push(circleX);
+    poistionYCircle.push(circleY);
+    allCircle();
+}
 
 function table() {
     ctx.fillStyle = "#212320"
@@ -47,6 +59,7 @@ function mediumCircle() {
     ctx.fill();
     ctx.stroke();
 }
+
 function smallCircle() {
     ctx.beginPath();
     ctx.arc(200, 200, circleSize - 20, 0, 2 * Math.PI);
@@ -58,15 +71,3 @@ function smallCircle() {
     ctx.fill();
     ctx.stroke();
 }
-
-
-
-
-//Amount of Circle
-const amountOfBigCircle =2;
-const amountOfMediumCircle=2;
-const amountOfSmallCircle=2;
-const arrayOfBigCircle =[bigCircle()];
-// arrayOfBigCircle[amountOfBigCircle]= bigCircle();
-
-
