@@ -8,7 +8,7 @@ const cw = canv.width
 const ch = canv.height
 const circleSize = 50;
 var amountOfBigCircle = 3;
-var amountOfMediumCircle =3;
+var amountOfMediumCircle = 3;
 let amountOfCheckingPosition = 0;
 let circleX;
 let circleY;
@@ -28,8 +28,9 @@ function table() {
 
 function showCircleOnWindow() {
     getPositionXY()
-    blockShowingCirclesOnTheSamePosition()
+    blockShowingBigCirclesOnTheSamePosition()
     blockShowingMediumCirclesOnTheSamePosition()
+    blockShowingMediumAndBigCirclesOnTheSamePosition()
     allCircle()
 }
 
@@ -57,16 +58,15 @@ function getPositionXY() {
     }
 }
 
-function blockShowingCirclesOnTheSamePosition() {
+function blockShowingBigCirclesOnTheSamePosition() {
     for (var i = 0; i <= amountOfBigCircle - 1; i++) {
         for (var j = i + 1; j <= amountOfBigCircle - 1; j++) {
             if ((positionXCircle[i] - positionXCircle[j]) < 100 && (positionXCircle[i] - positionXCircle[j]) > -100) {
                 if ((positionYCircle[i] - positionYCircle[j]) < 100 && (positionYCircle[i] - positionYCircle[j]) > -100) {
-                    do
-                    {
+                    do {
                         randomPositions()
-                    } while((positionYCircle[i] - positionYCircle[j]) < 100 && (positionYCircle[i] - positionYCircle[j]) > -100);
-                    
+                    } while ((positionYCircle[i] - positionYCircle[j]) < 100 && (positionYCircle[i] - positionYCircle[j]) > -100);
+
                     positionXCircle[i] = circleX;
                     positionYCircle[j] = circleY;
 
@@ -75,17 +75,16 @@ function blockShowingCirclesOnTheSamePosition() {
         }
     }
 }
-function blockShowingMediumCirclesOnTheSamePosition()
-{
+
+function blockShowingMediumCirclesOnTheSamePosition() {
     for (var i = 0; i <= amountOfMediumCircle - 1; i++) {
         for (var j = i + 1; j <= amountOfMediumCircle - 1; j++) {
             if ((positionXMediumCircle[i] - positionXMediumCircle[j]) < 80 && (positionXCircle[i] - positionXCircle[j]) > -80) {
                 if ((positionYMediumCircle[i] - positionYMediumCircle[j]) < 100 && (positionYCircle[i] - positionYCircle[j]) > -80) {
-                    do
-                    {
+                    do {
                         randomPositions()
-                    } while((positionYMediumCircle[i] - positionYMediumCircle[j]) < 80 && (positionYCircle[i] - positionYCircle[j]) > -80);
-                    
+                    } while ((positionYMediumCircle[i] - positionYMediumCircle[j]) < 80 && (positionYCircle[i] - positionYCircle[j]) > -80);
+
                     positionXMediumCircle[i] = circleX;
                     positionYMediumCircle[j] = circleY;
 
@@ -93,12 +92,30 @@ function blockShowingMediumCirclesOnTheSamePosition()
             }
         }
     }
-}   
+    
+}
+function blockShowingMediumAndBigCirclesOnTheSamePosition()
+{
+    for (var i = 0; i <= amountOfMediumCircle - 1; i++) {
+        for (var j = i; j <= amountOfBigCircle - 1; j++) {
+            if ((positionXMediumCircle[i] - positionXCircle[j]) < 90 && (positionXMediumCircle[i] - positionXCircle[j]) > -90) {
+                if ((positionYMediumCircle[i] - positionYCircle[j]) < 90 && (positionYMediumCircle[i] - positionYCircle[j]) > -90) {
+                    do {
+                        randomPositions()
+                    } while ((positionYMediumCircle[i] - positionYCircle[j]) < 90 && (positionYMediumCircle[i] - positionYCircle[j]) > -90);
 
+                    positionXMediumCircle[i] = circleX;
+                    positionYMediumCircle[j] = circleY;
+
+                }
+            }
+        }
+    }
+}
 //SIZE OF CIRCLE --------------------
 function bigCircle() {
     for (var i = 0; i <= amountOfBigCircle - 1; i++) {
-        //CREAT CIRCLE----------------------
+        //CREAT CIRCLE ----------------------
         ctx.beginPath();
         ctx.arc(positionXCircle[i], positionYCircle[i], circleSize, 0 * Math.PI, 2 * Math.PI);
         ctx.fillStyle = "blue";
@@ -129,16 +146,16 @@ function lineCircle() {
 
 function mediumCircle() {
     for (var i = 0; i <= amountOfMediumCircle - 1; i++) {
-    ctx.beginPath();
-    ctx.arc(positionXMediumCircle[i], positionYMediumCircle[i], circleSize - 10, 0, 2 * Math.PI);
-    ctx.fillStyle = "blue";
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(positionXMediumCircle[i], positionYMediumCircle[i], circleSize - 20, 0, 2 * Math.PI);
-    ctx.fillStyle = "black";
-    ctx.fill();
-    ctx.stroke();
-}
+        ctx.beginPath();
+        ctx.arc(positionXMediumCircle[i], positionYMediumCircle[i], circleSize - 10, 0, 2 * Math.PI);
+        ctx.fillStyle = "blue";
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(positionXMediumCircle[i], positionYMediumCircle[i], circleSize - 20, 0, 2 * Math.PI);
+        ctx.fillStyle = "black";
+        ctx.fill();
+        ctx.stroke();
+    }
 }
 
 function smallCircle() {
