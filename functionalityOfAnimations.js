@@ -9,7 +9,7 @@ const ch = canv.height
 const circleSize = 50;
 var amountOfBigCircle = 1;
 var amountOfMediumCircle = 1;
-var amountOfSmallCircle =2;
+var amountOfSmallCircle =3;
 let amountOfCheckingPosition = 0;
 let circleX;
 let circleY;
@@ -266,6 +266,20 @@ function lineOfMediumAndBigCircle() {
     }
 }
 }
+function lineOfSmallCircle() {
+    for (var i = 0; i <= amountOfSmallCircle - 1; i++) {
+        //CREATE LINES----------------------
+        ctx.beginPath();
+        ctx.moveTo(positionXSmallCircle[i], positionYSmallCircle[i]);
+        ctx.lineTo(positionXSmallCircle[i + 1], positionYSmallCircle[i + 1]);
+        ctx.stroke();
+        // ADDING LAST LINE CIRCLE TO THE FIRST----------------------
+        ctx.beginPath();
+        ctx.moveTo(positionXSmallCircle[amountOfSmallCircle - 1], positionYMediumCircle[amountOfMediumCircle - 1]);
+        ctx.lineTo(positionXSmallCircle[i], positionYSmallCircle[i]);
+        ctx.stroke();
+    }
+}
 function smallCircle() {
     for (var i = 0; i <= amountOfSmallCircle - 1; i++) {
     ctx.beginPath();
@@ -277,5 +291,7 @@ function smallCircle() {
     ctx.fillStyle = "black";
     ctx.fill();
     ctx.stroke();
+    lineOfSmallCircle()
     }
 }
+
