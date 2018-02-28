@@ -27,9 +27,10 @@ function table() {
 }
 
 function showCircleOnWindow() {
-    getPositionXY();
-    blockShowingCirclesOnTheSamePosition();
-    allCircle();
+    getPositionXY()
+    blockShowingCirclesOnTheSamePosition()
+    blockShowingMediumCirclesOnTheSamePosition()
+    allCircle()
 }
 
 function allCircle() {
@@ -74,10 +75,26 @@ function blockShowingCirclesOnTheSamePosition() {
         }
     }
 }
-function blockShowingMediumCircleOnTheSamePosition()
+function blockShowingMediumCirclesOnTheSamePosition()
 {
+    for (var i = 0; i <= amountOfMediumCircle - 1; i++) {
+        for (var j = i + 1; j <= amountOfMediumCircle - 1; j++) {
+            if ((positionXMediumCircle[i] - positionXMediumCircle[j]) < 80 && (positionXCircle[i] - positionXCircle[j]) > -80) {
+                if ((positionYMediumCircle[i] - positionYMediumCircle[j]) < 100 && (positionYCircle[i] - positionYCircle[j]) > -80) {
+                    do
+                    {
+                        randomPositions()
+                    } while((positionYMediumCircle[i] - positionYMediumCircle[j]) < 80 && (positionYCircle[i] - positionYCircle[j]) > -80);
+                    
+                    positionXMediumCircle[i] = circleX;
+                    positionYMediumCircle[j] = circleY;
 
-}
+                }
+            }
+        }
+    }
+}   
+
 //SIZE OF CIRCLE --------------------
 function bigCircle() {
     for (var i = 0; i <= amountOfBigCircle - 1; i++) {
