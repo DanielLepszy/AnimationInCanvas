@@ -7,8 +7,8 @@ canv.height = 864;
 const cw = canv.width
 const ch = canv.height
 const circleSize = 50;
-var amountOfBigCircle = 3;
-var amountOfMediumCircle = 3;
+var amountOfBigCircle = 4;
+var amountOfMediumCircle = 1;
 let amountOfCheckingPosition = 0;
 let circleX;
 let circleY;
@@ -92,10 +92,10 @@ function blockShowingMediumCirclesOnTheSamePosition() {
             }
         }
     }
-    
+
 }
-function blockShowingMediumAndBigCirclesOnTheSamePosition()
-{
+
+function blockShowingMediumAndBigCirclesOnTheSamePosition() {
     for (var i = 0; i <= amountOfMediumCircle - 1; i++) {
         for (var j = i; j <= amountOfBigCircle - 1; j++) {
             if ((positionXMediumCircle[i] - positionXCircle[j]) < 90 && (positionXMediumCircle[i] - positionXCircle[j]) > -90) {
@@ -143,6 +143,7 @@ function lineOfBigCircle() {
         ctx.stroke();
     }
 }
+
 function lineOfMediumCircle() {
     for (var i = 0; i <= amountOfBigCircle - 1; i++) {
         //CREATE LINES----------------------
@@ -152,12 +153,25 @@ function lineOfMediumCircle() {
         ctx.stroke();
         // ADDING LAST LINE CIRCLE TO THE FIRST----------------------
         ctx.beginPath();
-        ctx.moveTo(positionXMediumCircle[amountOfMediumCircle - 1],positionYMediumCircle[amountOfMediumCircle - 1]);
-        ctx.lineTo(positionXMediumCircle[i],positionYMediumCircle[i]);
+        ctx.moveTo(positionXMediumCircle[amountOfMediumCircle - 1], positionYMediumCircle[amountOfMediumCircle - 1]);
+        ctx.lineTo(positionXMediumCircle[i], positionYMediumCircle[i]);
         ctx.stroke();
     }
 }
-
+function lineOfMediumCircle() {
+    for (var i = 0; i <= amountOfBigCircle - 1; i++) {
+        //CREATE LINES----------------------
+        ctx.beginPath();
+        ctx.moveTo(positionXMediumCircle[i], positionYMediumCircle[i]);
+        ctx.lineTo(positionXMediumCircle[i + 1], positionYMediumCircle[i + 1]);
+        ctx.stroke();
+        // ADDING LAST LINE CIRCLE TO THE FIRST----------------------
+        ctx.beginPath();
+        ctx.moveTo(positionXMediumCircle[amountOfMediumCircle - 1], positionYMediumCircle[amountOfMediumCircle - 1]);
+        ctx.lineTo(positionXMediumCircle[i], positionYMediumCircle[i]);
+        ctx.stroke();
+    }
+}
 function mediumCircle() {
     for (var i = 0; i <= amountOfMediumCircle - 1; i++) {
         ctx.beginPath();
@@ -170,9 +184,25 @@ function mediumCircle() {
         ctx.fill();
         ctx.stroke();
         lineOfMediumCircle()
+        lineOfMediumAndBigCircle()
     }
 }
-
+function lineOfMediumAndBigCircle() {
+    for (var i = 0; i <= amountOfMediumCircle - 1; i++) {
+        for (var j = 0; j <= amountOfBigCircle - 1; j++) {
+        //CREATE LINES----------------------
+        ctx.beginPath();
+        ctx.moveTo(positionXMediumCircle[i], positionYMediumCircle[i]);
+        ctx.lineTo(positionXCircle[j], positionYCircle[j]);
+        ctx.stroke();
+        // ADDING LAST LINE CIRCLE TO THE FIRST----------------------
+        ctx.beginPath();
+        ctx.moveTo(positionXMediumCircle[amountOfMediumCircle - 1], positionYMediumCircle[amountOfMediumCircle - 1]);
+        ctx.lineTo(positionXCircle[j], positionYCircle[j]);
+        ctx.stroke();
+    }
+}
+}
 function smallCircle() {
     ctx.beginPath();
     ctx.arc(200, 200, circleSize - 20, 0, 2 * Math.PI);
