@@ -7,8 +7,8 @@ canv.height = 864;
 const cw = canv.width
 const ch = canv.height
 const circleSize = 50;
-var amountOfBigCircle = 1;
-var amountOfMediumCircle = 1;
+var amountOfBigCircle = 5;
+var amountOfMediumCircle = 5;
 var amountOfSmallCircle =3;
 let amountOfCheckingPosition = 0;
 let circleX;
@@ -90,7 +90,7 @@ function blockShowingBigCirclesOnTheSamePosition() {
 function blockShowingMediumCirclesOnTheSamePosition() {
     for (var i = 0; i <= amountOfMediumCircle - 1; i++) {
         for (var j = i + 1; j <= amountOfMediumCircle - 1; j++) {
-            if ((positionXMediumCircle[i] - positionXMediumCircle[j]) < 80 && (positionXMediumCircle[i] - positionXCMediumircle[j]) > -80) {
+            if ((positionXMediumCircle[i] - positionXMediumCircle[j]) < 80 && (positionXMediumCircle[i] - positionXMediumCircle[j]) > -80) {
                 if ((positionYMediumCircle[i] - positionYMediumCircle[j]) < 80 && (positionYMediumCircle[i] - positionYMediumCircle[j]) > -80) {
                     do {
                         randomPositions()
