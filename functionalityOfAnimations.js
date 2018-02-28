@@ -61,7 +61,11 @@ function blockShowingCirclesOnTheSamePosition() {
         for (var j = i + 1; j <= amountOfBigCircle - 1; j++) {
             if ((positionXCircle[i] - positionXCircle[j]) < 100 && (positionXCircle[i] - positionXCircle[j]) > -100) {
                 if ((positionYCircle[i] - positionYCircle[j]) < 100 && (positionYCircle[i] - positionYCircle[j]) > -100) {
-                    randomPositions()
+                    do
+                    {
+                        randomPositions()
+                    } while((positionYCircle[i] - positionYCircle[j]) < 100 && (positionYCircle[i] - positionYCircle[j]) > -100);
+                    
                     positionXCircle[i] = circleX;
                     positionYCircle[j] = circleY;
 
@@ -69,6 +73,10 @@ function blockShowingCirclesOnTheSamePosition() {
             }
         }
     }
+}
+function blockShowingMediumCircleOnTheSamePosition()
+{
+
 }
 //SIZE OF CIRCLE --------------------
 function bigCircle() {
