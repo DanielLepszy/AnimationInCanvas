@@ -8,12 +8,15 @@ const cw = canv.width
 const ch = canv.height
 const circleSize = 50;
 var amountOfBigCircle = 3;
+var amountOfMediumCircle =3;
 let amountOfCheckingPosition = 0;
 let circleX;
 let circleY;
 
 var positionXCircle = [];
 var positionYCircle = [];
+var positionXMediumCircle = [];
+var positionYMediumCircle = [];
 
 table();
 showCircleOnWindow();
@@ -31,7 +34,7 @@ function showCircleOnWindow() {
 
 function allCircle() {
     bigCircle();
-    // mediumCircle();
+    mediumCircle();
     // smallCircle();
 }
 
@@ -46,6 +49,11 @@ function getPositionXY() {
         positionXCircle.push(circleX);
         positionYCircle.push(circleY);
     }
+    for (var i = 1; i <= amountOfMediumCircle; i++) {
+        randomPositions()
+        positionXMediumCircle.push(circleX);
+        positionYMediumCircle.push(circleY);
+    }
 }
 
 function blockShowingCirclesOnTheSamePosition() {
@@ -54,7 +62,6 @@ function blockShowingCirclesOnTheSamePosition() {
             if ((positionXCircle[i] - positionXCircle[j]) < 100 && (positionXCircle[i] - positionXCircle[j]) > -100) {
                 if ((positionYCircle[i] - positionYCircle[j]) < 100 && (positionYCircle[i] - positionYCircle[j]) > -100) {
                     randomPositions()
-                    alert('poprawa');
                     positionXCircle[i] = circleX;
                     positionYCircle[j] = circleY;
 
@@ -96,15 +103,17 @@ function lineCircle() {
 }
 
 function mediumCircle() {
+    for (var i = 0; i <= amountOfMediumCircle - 1; i++) {
     ctx.beginPath();
-    ctx.arc(400, 200, circleSize - 10, 0, 2 * Math.PI);
+    ctx.arc(positionXMediumCircle[i], positionYMediumCircle[i], circleSize - 10, 0, 2 * Math.PI);
     ctx.fillStyle = "blue";
     ctx.fill();
     ctx.beginPath();
-    ctx.arc(400, 200, circleSize - 20, 0, 2 * Math.PI);
+    ctx.arc(positionXMediumCircle[i], positionYMediumCircle[i], circleSize - 20, 0, 2 * Math.PI);
     ctx.fillStyle = "black";
     ctx.fill();
     ctx.stroke();
+}
 }
 
 function smallCircle() {
