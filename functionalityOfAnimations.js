@@ -125,11 +125,11 @@ function bigCircle() {
         ctx.fillStyle = "black";
         ctx.fill();
         ctx.stroke();
-        lineCircle();
+        lineOfBigCircle();
     }
 }
 
-function lineCircle() {
+function lineOfBigCircle() {
     for (var i = 0; i <= amountOfBigCircle - 1; i++) {
         //CREATE LINES----------------------
         ctx.beginPath();
@@ -140,6 +140,20 @@ function lineCircle() {
         ctx.beginPath();
         ctx.moveTo(positionXCircle[amountOfBigCircle - 1], positionYCircle[amountOfBigCircle - 1]);
         ctx.lineTo(positionXCircle[i], positionYCircle[i]);
+        ctx.stroke();
+    }
+}
+function lineOfMediumCircle() {
+    for (var i = 0; i <= amountOfBigCircle - 1; i++) {
+        //CREATE LINES----------------------
+        ctx.beginPath();
+        ctx.moveTo(positionXMediumCircle[i], positionYMediumCircle[i]);
+        ctx.lineTo(positionXMediumCircle[i + 1], positionYMediumCircle[i + 1]);
+        ctx.stroke();
+        // ADDING LAST LINE CIRCLE TO THE FIRST----------------------
+        ctx.beginPath();
+        ctx.moveTo(positionXMediumCircle[amountOfMediumCircle - 1],positionYMediumCircle[amountOfMediumCircle - 1]);
+        ctx.lineTo(positionXMediumCircle[i],positionYMediumCircle[i]);
         ctx.stroke();
     }
 }
@@ -155,6 +169,7 @@ function mediumCircle() {
         ctx.fillStyle = "black";
         ctx.fill();
         ctx.stroke();
+        lineOfMediumCircle()
     }
 }
 
