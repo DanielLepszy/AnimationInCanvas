@@ -33,7 +33,10 @@ function showCircleOnWindow() {
     getPositionXY()
     blockShowingBigCirclesOnTheSamePosition()
     blockShowingMediumCirclesOnTheSamePosition()
+    blockShowingSmallCirclesOnTheSamePosition()
     blockShowingMediumAndBigCirclesOnTheSamePosition()
+    blockShowingSmallAndBigCirclesOnTheSamePosition()
+    blockShowingSmallAndMediumCirclesOnTheSamePosition()
     allCircle()
 }
 
@@ -137,6 +140,41 @@ function blockShowingMediumAndBigCirclesOnTheSamePosition() {
         }
     }
 }
+function blockShowingSmallAndBigCirclesOnTheSamePosition() {
+    for (var i = 0; i <= amountOfSmallCircle - 1; i++) {
+        for (var j = i; j <= amountOfBigCircle - 1; j++) {
+            if ((positionXSmallCircle[i] - positionXCircle[j]) < 80 && (positionXSmallCircle[i] - positionXCircle[j]) > -80) {
+                if ((positionYSmallCircle[i] - positionYCircle[j]) < 80 && (positionYSmallCircle[i] - positionYCircle[j]) > -80) {
+                    do {
+                        randomPositions()
+                    } while ((positionYSmallCircle[i] - positionYCircle[j]) < 80 && (positionYSmallCircle[i] - positionYCircle[j]) > -80);
+
+                    positionXSmallCircle[i] = circleX;
+                    positionYSmallCircle[j] = circleY;
+
+                }
+            }
+        }
+    }
+}
+function blockShowingSmallAndMediumCirclesOnTheSamePosition() {
+    for (var i = 0; i <= amountOfSmallCircle - 1; i++) {
+        for (var j = i; j <= amountOfMediumCircle - 1; j++) {
+            if ((positionXSmallCircle[i] - positionXMediumCircle[j]) < 80 && (positionXSmallCircle[i] - positionXMediumCircle[j]) > -80) {
+                if ((positionYSmallCircle[i] - positionYMediumCircle[j]) < 80 && (positionYSmallCircle[i] - positionYMediumCircle[j]) > -80) {
+                    do {
+                        randomPositions()
+                    } while ((positionYSmallCircle[i] - positionYMediumCircle[j]) < 80 && (positionYSmallCircle[i] - positionYMediumCircle[j]) > -80);
+
+                    positionXSmallCircle[i] = circleX;
+                    positionYSmallCircle[j] = circleY;
+
+                }
+            }
+        }
+    }
+}
+
 //SIZE OF CIRCLE --------------------
 function bigCircle() {
     for (var i = 0; i <= amountOfBigCircle - 1; i++) {
