@@ -18,11 +18,8 @@ canv.height = 864;
 const cw = canv.width
 const ch = canv.height
 var circles = [];
-var circles2 = [];
 const circleSize = 50;
 var amountOfBigCircle = 5;
-
-
 let amountOfCheckingPosition = 0;
 
 
@@ -45,7 +42,7 @@ function allCircle() {
 
 }
 
-function randomPositions() {
+function getPoint() {
     const circleX = Math.floor(Math.random() * (1536 - 2 * circleSize) + circleSize);
     const circleY = Math.floor(Math.random() * (864 - 2 * circleSize) + circleSize);
     const point = new CirclePoint(circleX, circleY)
@@ -53,15 +50,32 @@ function randomPositions() {
 }
 
 function createBigCircles() {
-
     for (var i = 0; i <= amountOfBigCircle - 1; i++) {
-        const point = randomPositions()
+        var point = getPoint();
+        while (!isPointCorrect(point)) {
+            point = getPoint();
+        }
         const circle = new Circle(point)
-
-        circles.push(circle);
-        circles2.push(circle);
+        circles.push(circle)
     }
 }
+
+function checkIfCirclesOverlap(pointA, pointB) {
+    return Math.hypot(pointA.x - pointB.x, pointA.y - pointB.y) <= (50 + 50);
+}
+
+function isPointCorrect(point) {
+    var isCorrect = true
+    for (let index = 0; index < circles.length; index++) {
+        const circle = circles[index];
+        if (checkIfCirclesOverlap(point, circle.point)) {
+            isCorrect = false;
+            break;
+        }
+    }
+    return isCorrect
+}
+
 //SIZE OF CIRCLE --------------------
 function drawBigCircles() {
     for (var i = 0; i <= amountOfBigCircle - 1; i++) {
@@ -81,14 +95,12 @@ function drawBigCircles() {
 }
 
 function lineOfBigCircles() {
-
     for (var j = 0; j <= amountOfBigCircle - 1; j++) {
         for (var i = 1; i <= amountOfBigCircle - 1; i++) {
             ctx.beginPath();
-            ctx.moveTo(circles[j].point.x, circles[j].point.y);    
+            ctx.moveTo(circles[j].point.x, circles[j].point.y);
             ctx.lineTo(circles[i].point.x, circles[i].point.y);
             ctx.stroke();
         }
-
     }
 }
