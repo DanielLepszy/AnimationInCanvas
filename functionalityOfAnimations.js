@@ -18,9 +18,10 @@ canv.height = 864;
 const cw = canv.width
 const ch = canv.height
 var circles = [];
+var circles2 = [];
 const circleSize = 50;
-var amountOfBigCircle = 5
 var amountOfBigCircle = 5;
+
 
 let amountOfCheckingPosition = 0;
 
@@ -58,7 +59,7 @@ function createBigCircles() {
         const circle = new Circle(point)
 
         circles.push(circle);
-
+        circles2.push(circle);
     }
 }
 //SIZE OF CIRCLE --------------------
@@ -75,23 +76,19 @@ function drawBigCircles() {
         ctx.fillStyle = "black";
         ctx.fill();
         ctx.stroke();
-        
+
     }
 }
+
 function lineOfBigCircles() {
-    for (var i = 0; i <= amountOfBigCircle - 1; i++) {
-        const circleA = circles[i];
-        if (i + 1 === amountOfBigCircle) {
+
+    for (var j = 0; j <= amountOfBigCircle - 1; j++) {
+        for (var i = 1; i <= amountOfBigCircle - 1; i++) {
             ctx.beginPath();
-            ctx.moveTo(circleA.point.x, circleA.point.y);
-            ctx.lineTo(circles[0].point.x, circles[0].point.y);
-            ctx.stroke();
-        } else {
-            const circleB = circles[i + 1];
-            ctx.beginPath();
-            ctx.moveTo(circleA.point.x, circleA.point.y);
-            ctx.lineTo(circleB.point.x, circleB.point.y);
+            ctx.moveTo(circles[j].point.x, circles[j].point.y);    
+            ctx.lineTo(circles[i].point.x, circles[i].point.y);
             ctx.stroke();
         }
+
     }
 }
