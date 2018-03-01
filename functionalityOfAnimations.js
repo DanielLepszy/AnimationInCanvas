@@ -11,7 +11,8 @@ class CirclePoint {
 }
 var canv = document.getElementById("animationCanvas");
 var ctx = canv.getContext("2d");
-
+var speedX = 1;
+var speedY = 1;
 canv.width = 1536;
 canv.height = 864;
 
@@ -19,7 +20,7 @@ const cw = canv.width
 const ch = canv.height
 var circles = [];
 const circleSize = 50;
-var amountOfBigCircle = 5;
+var amountOfBigCircle = 1;
 let amountOfCheckingPosition = 0;
 
 
@@ -103,4 +104,18 @@ function lineOfBigCircles() {
             ctx.stroke();
         }
     }
+}
+
+function moveCircle() {
+    for (var i = 0; i < circles.length; i++) {
+
+        var coordinates = circles[i].point;
+        movePointCircle(coordinates)
+        coordinates.x
+    }
+
+}
+
+function movePointCircle(coordinatesXY) {
+
 }
