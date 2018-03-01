@@ -34,7 +34,7 @@ function table() {
 
 function showCircleOnWindow() {
     createBigCircles()
-    setInterval(allCircle,20000);
+    setInterval(allCircle,20);
 }
 
 
@@ -113,7 +113,7 @@ function moveCircle() {
 
         var coordinates = circles[i].point;
     
-        circles[i].point.x = movePointCircle(coordinates);
+        circles[i].point = movePointCircle(coordinates);
         
     }
 
@@ -121,6 +121,7 @@ function moveCircle() {
 
 function movePointCircle(coordinates) {
     //for (var i = 1; i >= 1; i++) {
-
-    return coordinates.x += speedX;
+        coordinates.x += speedX
+        coordinates.y += speedX
+    return coordinates
 }
