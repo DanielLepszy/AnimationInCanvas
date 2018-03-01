@@ -34,13 +34,14 @@ function table() {
 
 function showCircleOnWindow() {
     createBigCircles()
-    allCircle()
+    setInterval(allCircle,20000);
 }
+
 
 function allCircle() {
     drawBigCircles();
     lineOfBigCircles();
-
+    moveCircle()
 }
 
 function getPoint() {
@@ -106,16 +107,20 @@ function lineOfBigCircles() {
     }
 }
 
+
 function moveCircle() {
     for (var i = 0; i < circles.length; i++) {
 
         var coordinates = circles[i].point;
-        movePointCircle(coordinates)
-        coordinates.x
+    
+        circles[i].point.x = movePointCircle(coordinates);
+        
     }
 
 }
 
-function movePointCircle(coordinatesXY) {
+function movePointCircle(coordinates) {
+    //for (var i = 1; i >= 1; i++) {
 
+    return coordinates.x += speedX;
 }
