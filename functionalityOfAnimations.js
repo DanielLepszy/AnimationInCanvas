@@ -34,11 +34,12 @@ function table() {
 
 function showCircleOnWindow() {
     createBigCircles()
-    setInterval(allCircle,20);
+    setInterval(allCircle, 20);
 }
 
 
 function allCircle() {
+    table()
     drawBigCircles();
     lineOfBigCircles();
     moveCircle()
@@ -112,16 +113,35 @@ function moveCircle() {
     for (var i = 0; i < circles.length; i++) {
 
         var coordinates = circles[i].point;
-    
+
         circles[i].point = movePointCircle(coordinates);
-        
+
     }
 
 }
 
 function movePointCircle(coordinates) {
     //for (var i = 1; i >= 1; i++) {
-        coordinates.x += speedX
-        coordinates.y += speedX
+    // var operators = ["+", "-"];
+
+    // for (var i = 0; i <= 1; i++) {
+    //     var opindex = Math.floor(Math.random() * 2);
+    //     var operator = operators[opindex];
+    //     if (i === 0) {
+    //         if (operators[opindex] === "+") {
+    //             coordinates.x += speedX
+    //         } else {
+    //             coordinates.x -= speedX
+    //         }
+    //     } else {
+    //         if (operators[opindex] === "+") {
+    //             coordinates.y += speedX
+    //         } else {
+    //             coordinates.y -= speedX
+    //         }
+    //     }
+    // }
+    coordinates.x += speedX
+    coordinates.y += speedY
     return coordinates
 }
