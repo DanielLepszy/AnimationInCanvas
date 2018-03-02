@@ -11,8 +11,8 @@ class CirclePoint {
 }
 var canv = document.getElementById("animationCanvas");
 var ctx = canv.getContext("2d");
-var speedX = 1;
-var speedY = 1;
+var speedX = Math.round(Math.random()) * 2 - 1;
+var speedY = Math.round(Math.random()) * 2 - 1;
 canv.width = 1536;
 canv.height = 864;
 
@@ -121,26 +121,6 @@ function moveCircle() {
 }
 
 function movePointCircle(coordinates) {
-    //for (var i = 1; i >= 1; i++) {
-    // var operators = ["+", "-"];
-
-    // for (var i = 0; i <= 1; i++) {
-    //     var opindex = Math.floor(Math.random() * 2);
-    //     var operator = operators[opindex];
-    //     if (i === 0) {
-    //         if (operators[opindex] === "+") {
-    //             coordinates.x += speedX
-    //         } else {
-    //             coordinates.x -= speedX
-    //         }
-    //     } else {
-    //         if (operators[opindex] === "+") {
-    //             coordinates.y += speedX
-    //         } else {
-    //             coordinates.y -= speedX
-    //         }
-    //     }
-    // }
     coordinates.x += speedX
     coordinates.y += speedY
     return coordinates
