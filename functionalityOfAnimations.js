@@ -51,11 +51,13 @@ function reflectionCirclesFromWindow() {
 function reflectionCirclesFromEachOther() {
     for (var i = 0; i <= amountOfBigCircle - 1; i++) {
         for (var j = 1; j <= amountOfBigCircle - 1; j++) {
-            if (circles[i].point.x - circles[j].point.x <= 2 * circleSize) {
-                if (circles[i].point.y - circles[j].point.y <= 2 * circleSize) {
+            
+            if (circles[i].point.x - circles[j].point.x <= 2 * circleSize && circles[i].point.x - circles[j].point.x >= (-2 * circleSize)) {
+                if (circles[i].point.y - circles[j].point.y <= 2 * circleSize && circles[i].point.y - circles[j].point.y >= (-2 * circleSize)) {
                     speedY[i] = -speedY[i];
-                    speedX[i] = -speedY[i];
-
+                    speedX[i] = -speedX[i];
+                    speedY[j] = -speedY[j];
+                    speedX[j] = -speedX[j];
                 }
             }
         }
@@ -66,8 +68,9 @@ function reflectionCirclesFromEachOther() {
 
 function allCircle() {
     table()
+    reflectionCirclesFromEachOther()
     reflectionCirclesFromWindow()
-    //reflectionCirclesFromEachOther()
+    
     lineOfBigCircles();
     drawBigCircles();
 
