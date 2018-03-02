@@ -35,7 +35,7 @@ function table() {
 function showCircleOnWindow() {
     createBigCircles()
     randomSpeedCircle()
-    setInterval(allCircle, 20);
+    setInterval(allCircle, 1);
 }
 
 function reflectionCirclesFromWindow() {
@@ -51,15 +51,14 @@ function reflectionCirclesFromWindow() {
 function reflectionCirclesFromEachOther() {
     for (var i = 0; i <= amountOfBigCircle - 1; i++) {
         for (var j = 1; j <= amountOfBigCircle - 1; j++) {
-            
-            if (circles[i].point.x - circles[j].point.x <= 2 * circleSize && circles[i].point.x - circles[j].point.x >= (-2 * circleSize)) {
-                if (circles[i].point.y - circles[j].point.y <= 2 * circleSize && circles[i].point.y - circles[j].point.y >= (-2 * circleSize)) {
+            var distanceCircles = Math.sqrt(Math.pow(circles[i].point.x - circles[j].point.x, 2) + Math.pow(circles[i].point.y - circles[j].point.y, 2));
+            if (distanceCircles <= 100) {
                     speedY[i] = -speedY[i];
                     speedX[i] = -speedX[i];
                     speedY[j] = -speedY[j];
                     speedX[j] = -speedX[j];
                 }
-            }
+            
         }
 
     }
@@ -70,7 +69,6 @@ function allCircle() {
     table()
     reflectionCirclesFromEachOther()
     reflectionCirclesFromWindow()
-    
     lineOfBigCircles();
     drawBigCircles();
 
@@ -146,14 +144,14 @@ function lineOfBigCircles() {
             // CHECKING LENGTH LINES AND PUT OPACITY
             for (var z = 9; z >= 1; z--) {
                 var opacityOfLine = z / 10;
-                var lengthOfLine = Math.sqrt(Math.pow(circles[i].point.x - circles[j].point.x,2) + Math.pow(circles[i].point.y - circles[j].point.y,2));
+                var lengthOfLine = Math.sqrt(Math.pow(circles[i].point.x - circles[j].point.x, 2) + Math.pow(circles[i].point.y - circles[j].point.y, 2));
                 distanceFromCircles += 40;
                 if (lengthOfLine <= (circleSize + distanceFromCircles)) {
                     ctx.moveTo(circles[j].point.x, circles[j].point.y);
                     ctx.lineTo(circles[i].point.x, circles[i].point.y);
                     ctx.strokeStyle = "rgba(17, 95, 251," + opacityOfLine + ")";
                     ctx.stroke();
-               
+
                 }
             }
         }
