@@ -20,7 +20,7 @@ const cw = canv.width
 const ch = canv.height
 var circles = [];
 const circleSize = 50;
-var amountOfBigCircle = 2;
+var amountOfBigCircle = 5;
 let amountOfCheckingPosition = 0;
 
 
@@ -37,30 +37,50 @@ function showCircleOnWindow() {
     randomSpeedCircle()
     setInterval(allCircle, 20);
 }
-function reflectionCirclesFromWindow()
-{
-   for (var i = 0; i <= amountOfBigCircle - 1; i++) {
-    if (circles[i].point.x < circleSize || circles[i].point.x >= cw-circleSize) {
-        speedX[i] = -speedX[i];
-    } else if (circles[i].point.y < circleSize || circles[i].point.y >= ch-circleSize) {
-        speedY[i] = -speedY[i];
-    }
+
+function reflectionCirclesFromWindow() {
+    for (var i = 0; i <= amountOfBigCircle - 1; i++) {
+        if (circles[i].point.x < circleSize || circles[i].point.x >= cw - circleSize) {
+            speedX[i] = -speedX[i];
+        } else if (circles[i].point.y < circleSize || circles[i].point.y >= ch - circleSize) {
+            speedY[i] = -speedY[i];
+        }
     }
 }
 
+function reflectionCirclesFromEachOther() {
+    for (var i = 0; i <= amountOfBigCircle - 1; i++) {
+        for (var j = 1; j <= amountOfBigCircle - 1; j++) {
+            if (circles[i].point.x - circles[j].point.x <= 2 * circleSize) {
+                if (circles[i].point.y - circles[j].point.y <= 2 * circleSize) {
+                    speedY[i] = -speedY[i];
+                    speedX[i] = -speedY[i];
+              
+                }
+            }
+        }
+
+    }
+}
+
+
 function allCircle() {
     table()
-    drawBigCircles();
-    lineOfBigCircles();
-    moveCircle()
     reflectionCirclesFromWindow()
+    //reflectionCirclesFromEachOther()
+    lineOfBigCircles();
+    drawBigCircles();
+    
+    moveCircle()
+ 
 }
- function randomSpeedCircle() {
+
+function randomSpeedCircle() {
     for (var i = 0; i <= circles.length; i++) {
         speedX[i] = Math.round(Math.random()) * 2 - 1;
         speedY[i] = Math.round(Math.random()) * 2 - 1;
-     }
- }
+    }
+}
 
 function getPoint() {
     const circleX = Math.floor(Math.random() * (1536 - 2 * circleSize) + circleSize);
@@ -119,8 +139,10 @@ function lineOfBigCircles() {
     for (var j = 0; j <= amountOfBigCircle - 1; j++) {
         for (var i = 1; i <= amountOfBigCircle - 1; i++) {
             ctx.beginPath();
+            
             ctx.moveTo(circles[j].point.x, circles[j].point.y);
             ctx.lineTo(circles[i].point.x, circles[i].point.y);
+            ctx.strokeStyle = 'rgba(17, 95, 251,1)';
             ctx.stroke();
         }
     }
@@ -133,14 +155,14 @@ function moveCircle() {
         var coordinates = circles[i].point;
         var speedXCircle = speedX[i];
         var speedYCircle = speedY[i];
-        circles[i].point = movePointCircle(coordinates,speedXCircle,speedYCircle);
+        circles[i].point = movePointCircle(coordinates, speedXCircle, speedYCircle);
 
     }
 
 }
 
 
-function movePointCircle(coordinates,speedXCircle,speedYCircle) {
+function movePointCircle(coordinates, speedXCircle, speedYCircle) {
 
     coordinates.x += speedXCircle
     coordinates.y += speedYCircle
