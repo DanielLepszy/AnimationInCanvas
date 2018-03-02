@@ -55,7 +55,7 @@ function reflectionCirclesFromEachOther() {
                 if (circles[i].point.y - circles[j].point.y <= 2 * circleSize) {
                     speedY[i] = -speedY[i];
                     speedX[i] = -speedY[i];
-              
+
                 }
             }
         }
@@ -70,9 +70,9 @@ function allCircle() {
     //reflectionCirclesFromEachOther()
     lineOfBigCircles();
     drawBigCircles();
-    
+
     moveCircle()
- 
+
 }
 
 function randomSpeedCircle() {
@@ -101,7 +101,7 @@ function createBigCircles() {
 }
 
 function checkIfCirclesOverlap(pointA, pointB) {
-    return Math.hypot(pointA.x - pointB.x, pointA.y - pointB.y) <= (50 + 50);
+    return Math.hypot(pointA.x - pointB.x, pointA.y - pointB.y) <= (circleSize + circleSize);
 }
 
 function isPointCorrect(point) {
@@ -136,17 +136,27 @@ function drawBigCircles() {
 }
 
 function lineOfBigCircles() {
-    for (var j = 0; j <= amountOfBigCircle - 1; j++) {
-        for (var i = 1; i <= amountOfBigCircle - 1; i++) {
+    for (var i = 0; i <= amountOfBigCircle - 1; i++) {
+        for (var j = 1; j <= amountOfBigCircle - 1; j++) {
             ctx.beginPath();
-            
-            ctx.moveTo(circles[j].point.x, circles[j].point.y);
-            ctx.lineTo(circles[i].point.x, circles[i].point.y);
-            ctx.strokeStyle = 'rgba(17, 95, 251,1)';
-            ctx.stroke();
+            var distanceFromCircles = 0;
+            // CHECKING LENGTH LINES AND PUT OPACITY
+            for (var z = 9; z >= 1; z--) {
+                var opacityOfLine = z / 10;
+                var lengthOfLine = Math.sqrt(Math.pow(circles[i].point.x - circles[j].point.x,2) + Math.pow(circles[i].point.y - circles[j].point.y,2));
+                distanceFromCircles += 40;
+                if (lengthOfLine <= (circleSize + distanceFromCircles)) {
+                    ctx.moveTo(circles[j].point.x, circles[j].point.y);
+                    ctx.lineTo(circles[i].point.x, circles[i].point.y);
+                    ctx.strokeStyle = "rgba(17, 95, 251," + opacityOfLine + ")";
+                    ctx.stroke();
+               
+                }
+            }
         }
     }
 }
+
 
 
 function moveCircle() {
