@@ -10,29 +10,29 @@ class CirclePoint {
         this.y = y;
     }
 }
-var canv = document.getElementById("animationCanvas");
-var ctx = canv.getContext("2d");
-var speedX = [];
-var speedY = [];
-canv.width = 1536;
-canv.height = 864;
+var canvas = document.getElementById("animationCanvas");
+var context = canvas.getContext("2d");
 
-const CANVAS_WIDTH = canv.width
-const CANVAS_HEIGHT = canv.height
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const CANVAS_WIDTH = canvas.width
+const CANVAS_HEIGHT = canvas.height
 var circles = [];
 const BIG_SIZE = 50;
 const MEDIUM_SIZE = 40;
 const SMALL_SIZE = 25;
 var amountOfBigCircle = 15;
 let amountOfCheckingPosition = 0;
-
+var speedX = [];
+var speedY = [];
 
 
 showCircleOnWindow();
 
 function table() {
-    ctx.fillStyle = "#212320"
-    ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    context.fillStyle = "#212320"
+    context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 }
 
 function showCircleOnWindow() {
@@ -133,15 +133,15 @@ function drawBigCircles() {
         //CREAT CIRCLE ----------------------
 
         const circle = circles[i];
-        ctx.beginPath();
-        ctx.arc(circle.point.x, circle.point.y, circle.radius, 0 * Math.PI, 2 * Math.PI);
-        ctx.fillStyle = "blue";
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(circle.point.x, circle.point.y, circle.radius - 10, 0, 2 * Math.PI);
-        ctx.fillStyle = "black";
-        ctx.fill();
-        ctx.stroke();
+        context.beginPath();
+        context.arc(circle.point.x, circle.point.y, circle.radius, 0 * Math.PI, 2 * Math.PI);
+        context.fillStyle = "blue";
+        context.fill();
+        context.beginPath();
+        context.arc(circle.point.x, circle.point.y, circle.radius - 10, 0, 2 * Math.PI);
+        context.fillStyle = "black";
+        context.fill();
+        context.stroke();
 
     }
 }
@@ -149,7 +149,7 @@ function drawBigCircles() {
 function lineOfBigCircles() {
     for (var i = 0; i <= amountOfBigCircle - 2; i++) {
         for (var j = 1; j <= amountOfBigCircle - 1; j++) {
-            ctx.beginPath();
+            context.beginPath();
             var distanceFromCircles = 0;
             // CHECKING LENGTH LINES AND PUT OPACITY
             for (var z = 9; z >= 1; z--) {
@@ -157,10 +157,10 @@ function lineOfBigCircles() {
                 var lengthOfLine = Math.sqrt(Math.pow(circles[i].point.x - circles[j].point.x, 2) + Math.pow(circles[i].point.y - circles[j].point.y, 2));
                 distanceFromCircles += 40;
                 if (lengthOfLine <= (circles[i].radius + distanceFromCircles)) {
-                    ctx.moveTo(circles[j].point.x, circles[j].point.y);
-                    ctx.lineTo(circles[i].point.x, circles[i].point.y);
-                    ctx.strokeStyle = "rgba(17, 95, 251," + opacityOfLine + ")";
-                    ctx.stroke();
+                    context.moveTo(circles[j].point.x, circles[j].point.y);
+                    context.lineTo(circles[i].point.x, circles[i].point.y);
+                    context.strokeStyle = "rgba(17, 95, 251," + opacityOfLine + ")";
+                    context.stroke();
 
                 }
             }
