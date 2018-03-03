@@ -20,7 +20,7 @@ const cw = canv.width
 const ch = canv.height
 var circles = [];
 const circleSize = 50;
-var amountOfBigCircle = 4;
+var amountOfBigCircle = 5;
 let amountOfCheckingPosition = 0;
 
 
@@ -35,8 +35,8 @@ function table() {
 function showCircleOnWindow() {
     createBigCircles()
     randomSpeedCircle()
-    //setInterval(allCircle, 1);
-    allCircle()
+    setInterval(allCircle, 0.1);
+   //allCircle()
 }
 
 function reflectionCirclesFromWindow() {
@@ -50,19 +50,19 @@ function reflectionCirclesFromWindow() {
 }
 
 function reflectionCirclesFromEachOther() {
-    for (var i = 0; i <= amountOfBigCircle - 2; i++) {
-        for (var j = 1; j <= amountOfBigCircle - 1; j++) {
-            //var distanceCircles = Math.sqrt(Math.pow(circles[i].point.x - circles[j].point.x, 2) + Math.pow(circles[i].point.y - circles[j].point.y, 2));
-          // if (distanceCircles <= 100) {
-              console.log(speedY[i]);
-                // console.log( speedX[i] = -speedX[i]);
-                //     console.log( speedY[j] = -speedY[j]);
-                //         console.log( speedX[j] = -speedX[j]);
-           // }
-
+    for (var i = 0; i < circles.length; i++) {
+        for (var j = i+1; j < circles.length; j++) {
+            var distanceCircles = Math.sqrt(Math.pow(circles[i].point.x - circles[j].point.x, 2) + Math.pow(circles[i].point.y - circles[j].point.y, 2));
+             if (distanceCircles <= 95) {
+            // console.log(speedY[j]);
+            speedY[i] = -speedY[i]; 
+            speedX[i] = -speedX[i];
+            speedY[j] = -speedY[j];
+            speedX[j] = -speedX[j];
+        
         }
-
     }
+}
 }
 
 
@@ -76,7 +76,7 @@ function allCircle() {
 }
 
 function randomSpeedCircle() {
-    for (var i = 0; i <= circles.length; i++) {
+    for (var i = 0; i < circles.length; i++) {
         speedX[i] = Math.round(Math.random()) * 2 - 1;
         speedY[i] = Math.round(Math.random()) * 2 - 1;
     }
