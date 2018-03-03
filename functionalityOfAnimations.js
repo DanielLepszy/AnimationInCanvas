@@ -22,7 +22,8 @@ const CANVAS_HEIGHT = canvas.height
 const BIG_SIZE = 50;
 const MEDIUM_SIZE = 40;
 const SMALL_SIZE = 25;
-var AMOUNT_OF_CIRCLES = 15;
+const ANIMATION_SPEED = 1;
+var AMOUNT_OF_CIRCLES = 20;
 
 
 var circles = [];
@@ -35,20 +36,28 @@ showCircleOnWindow();
 function showCircleOnWindow() {
     createCircles()
     randomSpeedCircle()
-    setInterval(allCircle, 0.1);
+    setInterval(startAnimation, ANIMATION_SPEED);
 }
 
 function createCircles() {
     for (var i = 0; i <= AMOUNT_OF_CIRCLES - 1; i++) {
-        const radius = randomSizeOfCircle(); // TU LOSOWAC SIZE! ----------
+        const radius = randomSizeOfCircle();
         var point = getPoint(radius);
-        while (!isPointCorrect(point, radius)) {
+        while (!isPointCorrect(point, radius)) { // FIX ME ---- IT CAN BE INFITINE LOOP WHEN IS NO PLACE ON SCREEN
             point = getPoint();
         }
-
         const circle = new Circle(point, radius)
         circles.push(circle)
     }
+}
+
+function startAnimation() {
+    drawFieldOfCanvas()
+    lineOfBigCircles()
+    drawCircles()
+    moveCircle()
+    circlesCollision()
+    circleAndWindowCollision()
 }
 
 function randomSizeOfCircle() {
@@ -95,16 +104,7 @@ function randomSpeedCircle() {
     }
 }
 
-function allCircle() {
-    table()
-    lineOfBigCircles()
-    drawBigCircles()
-    moveCircle()
-    reflectionCirclesFromEachOther()
-    reflectionCirclesFromWindow()
-}
-
-function table() {
+function drawFieldOfCanvas() {
     context.fillStyle = "#212320"
     context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 }
@@ -112,64 +112,63 @@ function table() {
 function lineOfBigCircles() {
     for (var i = 0; i <= circles.length - 2; i++) {
         for (var j = 1; j <= circles.length - 1; j++) {
+
             context.beginPath();
             var distanceFromCircles = 0;
-            // CHECKING LENGTH LINES AND PUT OPACITY
+            var pointFirst = circles[i].point;
+            var pointSecond = circles[j].point
+
             for (var z = 9; z >= 1; z--) {
                 var opacityOfLine = z / 10;
-                var lengthOfLine = Math.sqrt(Math.pow(circles[i].point.x - circles[j].point.x, 2) + Math.pow(circles[i].point.y - circles[j].point.y, 2));
+                var lengthOfLine = Math.sqrt(Math.pow(pointFirst.x - pointSecond.x, 2) + Math.pow(pointFirst.y - pointSecond.y, 2));
                 distanceFromCircles += 40;
                 if (lengthOfLine <= (circles[i].radius + distanceFromCircles)) {
-                    context.moveTo(circles[j].point.x, circles[j].point.y);
-                    context.lineTo(circles[i].point.x, circles[i].point.y);
+                    context.moveTo(pointSecond.x, pointSecond.y);
+                    context.lineTo(pointFirst.x, pointFirst.y);
                     context.strokeStyle = "rgba(17, 95, 251," + opacityOfLine + ")";
                     context.stroke();
-
                 }
             }
         }
     }
 }
 
-function drawBigCircles() {
+function drawCircles() {
     for (var i = 0; i < circles.length; i++) {
-        //CREAT CIRCLE ----------------------
 
         const circle = circles[i];
+        var x = circle.point.x;
+        var y = circle.point.y;
+        var radius = circle.radius;
+        
         context.beginPath();
-        context.arc(circle.point.x, circle.point.y, circle.radius, 0 * Math.PI, 2 * Math.PI);
+        context.arc(x, y, radius, 0 * Math.PI, 2 * Math.PI);
         context.fillStyle = "blue";
         context.fill();
         context.beginPath();
-        context.arc(circle.point.x, circle.point.y, circle.radius - 10, 0, 2 * Math.PI);
+        context.arc(x, y, radius - 10, 0, 2 * Math.PI);
         context.fillStyle = "black";
         context.fill();
         context.stroke();
-
     }
 }
 
 function moveCircle() {
     for (var i = 0; i < circles.length; i++) {
-
         var coordinates = circles[i].point;
         var speedXCircle = speedX[i];
         var speedYCircle = speedY[i];
         circles[i].point = movePointCircle(coordinates, speedXCircle, speedYCircle);
-
     }
-
 }
 
-
 function movePointCircle(coordinates, speedXCircle, speedYCircle) {
-
     coordinates.x += speedXCircle
     coordinates.y += speedYCircle
     return coordinates
 }
 
-function reflectionCirclesFromWindow() {
+function circleAndWindowCollision() {
     for (var i = 0; i <= circles.length - 1; i++) {
         if (circles[i].point.x < circles[i].radius || circles[i].point.x >= CANVAS_WIDTH - circles[i].radius) {
             speedX[i] = -speedX[i];
@@ -179,7 +178,7 @@ function reflectionCirclesFromWindow() {
     }
 }
 
-function reflectionCirclesFromEachOther() {
+function circlesCollision() {
     for (var i = 0; i < circles.length; i++) {
         for (var j = i + 1; j < circles.length; j++) {
             var distanceCircles = Math.sqrt(Math.pow(circles[i].point.x - circles[j].point.x, 2) + Math.pow(circles[i].point.y - circles[j].point.y, 2));
