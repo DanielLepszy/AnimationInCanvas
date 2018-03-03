@@ -64,7 +64,7 @@ function reflectionCirclesFromEachOther() {
     for (var i = 0; i < circles.length; i++) {
         for (var j = i + 1; j < circles.length; j++) {
             var distanceCircles = Math.sqrt(Math.pow(circles[i].point.x - circles[j].point.x, 2) + Math.pow(circles[i].point.y - circles[j].point.y, 2));
-            if (distanceCircles <= circles[i].radius) {
+            if (distanceCircles <= circles[i].radius+circles[j].radius ) {
                 speedY[i] = -speedY[i];
                 speedX[i] = -speedX[i];
                 speedY[j] = -speedY[j];
