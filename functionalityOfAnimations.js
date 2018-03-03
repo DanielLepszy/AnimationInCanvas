@@ -18,22 +18,19 @@ canvas.height = window.innerHeight;
 
 const CANVAS_WIDTH = canvas.width
 const CANVAS_HEIGHT = canvas.height
-var circles = [];
+
 const BIG_SIZE = 50;
 const MEDIUM_SIZE = 40;
 const SMALL_SIZE = 25;
-var amountOfBigCircle = 15;
-let amountOfCheckingPosition = 0;
+var AMOUNT_OF_CIRCLES = 15;
+
+
+var circles = [];
 var speedX = [];
 var speedY = [];
 
 
 showCircleOnWindow();
-
-function table() {
-    context.fillStyle = "#212320"
-    context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-}
 
 function showCircleOnWindow() {
     createCircles()
@@ -41,66 +38,8 @@ function showCircleOnWindow() {
     setInterval(allCircle, 0.1);
 }
 
-function randomSizeOfCircle() {
-    switch (Math.floor(Math.random() * 3) + 1) {
-        case 1: return SMALL_SIZE;
-        case 2: return MEDIUM_SIZE;
-        case 3: return BIG_SIZE;
-        default: return MEDIUM_SIZE;
-    }
-}
-
-function reflectionCirclesFromWindow() {
-    for (var i = 0; i <= circles.length - 1; i++) {
-        if (circles[i].point.x < circles[i].radius || circles[i].point.x >= CANVAS_WIDTH - circles[i].radius) {
-            speedX[i] = -speedX[i];
-        } else if (circles[i].point.y < circles[i].radius || circles[i].point.y >= CANVAS_HEIGHT - circles[i].radius) {
-            speedY[i] = -speedY[i];
-        }
-    }
-}
-
-function reflectionCirclesFromEachOther() {
-    for (var i = 0; i < circles.length; i++) {
-        for (var j = i + 1; j < circles.length; j++) {
-            var distanceCircles = Math.sqrt(Math.pow(circles[i].point.x - circles[j].point.x, 2) + Math.pow(circles[i].point.y - circles[j].point.y, 2));
-            if (distanceCircles <= circles[i].radius+circles[j].radius ) {
-                speedY[i] = -speedY[i];
-                speedX[i] = -speedX[i];
-                speedY[j] = -speedY[j];
-                speedX[j] = -speedX[j];
-
-            }
-        }
-    }
-}
-
-
-function allCircle() {
-    table()
-    lineOfBigCircles()
-    drawBigCircles()
-    moveCircle()
-    reflectionCirclesFromEachOther()
-    reflectionCirclesFromWindow()
-}
-
-function randomSpeedCircle() {
-    for (var i = 0; i < circles.length; i++) {
-        speedX[i] = Math.round(Math.random()) * 2 - 1;
-        speedY[i] = Math.round(Math.random()) * 2 - 1;
-    }
-}
-
-function getPoint(radius) {
-    const circleX = Math.floor(Math.random() * (1536 - 2 * radius) + radius);
-    const circleY = Math.floor(Math.random() * (864 - 2 * radius) + radius);
-    const point = new CirclePoint(circleX, circleY)
-    return point;
-}
-
 function createCircles() {
-    for (var i = 0; i <= amountOfBigCircle - 1; i++) {
+    for (var i = 0; i <= AMOUNT_OF_CIRCLES - 1; i++) {
         const radius = randomSizeOfCircle(); // TU LOSOWAC SIZE! ----------
         var point = getPoint(radius);
         while (!isPointCorrect(point, radius)) {
@@ -111,6 +50,27 @@ function createCircles() {
         circles.push(circle)
     }
 }
+
+function randomSizeOfCircle() {
+    switch (Math.floor(Math.random() * 3) + 1) {
+        case 1:
+            return SMALL_SIZE;
+        case 2:
+            return MEDIUM_SIZE;
+        case 3:
+            return BIG_SIZE;
+        default:
+            return MEDIUM_SIZE;
+    }
+}
+
+function getPoint(radius) {
+    const circleX = Math.floor(Math.random() * (1536 - 2 * radius) + radius);
+    const circleY = Math.floor(Math.random() * (864 - 2 * radius) + radius);
+    const point = new CirclePoint(circleX, circleY)
+    return point;
+}
+
 
 function checkIfCirclesOverlap(pointA, pointB, radius) {
     return Math.hypot(pointA.x - pointB.x, pointA.y - pointB.y) <= (radius + radius);
@@ -128,27 +88,30 @@ function isPointCorrect(point, radius) {
     return isCorrect
 }
 
-function drawBigCircles() {
-    for (var i = 0; i <= amountOfBigCircle - 1; i++) {
-        //CREAT CIRCLE ----------------------
-
-        const circle = circles[i];
-        context.beginPath();
-        context.arc(circle.point.x, circle.point.y, circle.radius, 0 * Math.PI, 2 * Math.PI);
-        context.fillStyle = "blue";
-        context.fill();
-        context.beginPath();
-        context.arc(circle.point.x, circle.point.y, circle.radius - 10, 0, 2 * Math.PI);
-        context.fillStyle = "black";
-        context.fill();
-        context.stroke();
-
+function randomSpeedCircle() {
+    for (var i = 0; i < circles.length; i++) {
+        speedX[i] = Math.round(Math.random()) * 2 - 1;
+        speedY[i] = Math.round(Math.random()) * 2 - 1;
     }
 }
 
+function allCircle() {
+    table()
+    lineOfBigCircles()
+    drawBigCircles()
+    moveCircle()
+    reflectionCirclesFromEachOther()
+    reflectionCirclesFromWindow()
+}
+
+function table() {
+    context.fillStyle = "#212320"
+    context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+}
+
 function lineOfBigCircles() {
-    for (var i = 0; i <= amountOfBigCircle - 2; i++) {
-        for (var j = 1; j <= amountOfBigCircle - 1; j++) {
+    for (var i = 0; i <= circles.length - 2; i++) {
+        for (var j = 1; j <= circles.length - 1; j++) {
             context.beginPath();
             var distanceFromCircles = 0;
             // CHECKING LENGTH LINES AND PUT OPACITY
@@ -168,7 +131,23 @@ function lineOfBigCircles() {
     }
 }
 
+function drawBigCircles() {
+    for (var i = 0; i < circles.length; i++) {
+        //CREAT CIRCLE ----------------------
 
+        const circle = circles[i];
+        context.beginPath();
+        context.arc(circle.point.x, circle.point.y, circle.radius, 0 * Math.PI, 2 * Math.PI);
+        context.fillStyle = "blue";
+        context.fill();
+        context.beginPath();
+        context.arc(circle.point.x, circle.point.y, circle.radius - 10, 0, 2 * Math.PI);
+        context.fillStyle = "black";
+        context.fill();
+        context.stroke();
+
+    }
+}
 
 function moveCircle() {
     for (var i = 0; i < circles.length; i++) {
@@ -188,4 +167,29 @@ function movePointCircle(coordinates, speedXCircle, speedYCircle) {
     coordinates.x += speedXCircle
     coordinates.y += speedYCircle
     return coordinates
+}
+
+function reflectionCirclesFromWindow() {
+    for (var i = 0; i <= circles.length - 1; i++) {
+        if (circles[i].point.x < circles[i].radius || circles[i].point.x >= CANVAS_WIDTH - circles[i].radius) {
+            speedX[i] = -speedX[i];
+        } else if (circles[i].point.y < circles[i].radius || circles[i].point.y >= CANVAS_HEIGHT - circles[i].radius) {
+            speedY[i] = -speedY[i];
+        }
+    }
+}
+
+function reflectionCirclesFromEachOther() {
+    for (var i = 0; i < circles.length; i++) {
+        for (var j = i + 1; j < circles.length; j++) {
+            var distanceCircles = Math.sqrt(Math.pow(circles[i].point.x - circles[j].point.x, 2) + Math.pow(circles[i].point.y - circles[j].point.y, 2));
+            if (distanceCircles <= circles[i].radius + circles[j].radius) {
+                speedY[i] = -speedY[i];
+                speedX[i] = -speedX[i];
+                speedY[j] = -speedY[j];
+                speedX[j] = -speedX[j];
+
+            }
+        }
+    }
 }
