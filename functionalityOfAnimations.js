@@ -24,7 +24,7 @@ var amountOfBigCircle = 5;
 let amountOfCheckingPosition = 0;
 
 
-table();
+
 showCircleOnWindow();
 
 function table() {
@@ -52,13 +52,13 @@ function reflectionCirclesFromEachOther() {
     for (var i = 0; i <= amountOfBigCircle - 1; i++) {
         for (var j = 1; j <= amountOfBigCircle - 1; j++) {
             var distanceCircles = Math.sqrt(Math.pow(circles[i].point.x - circles[j].point.x, 2) + Math.pow(circles[i].point.y - circles[j].point.y, 2));
-            if (distanceCircles <= 100) {
-                    speedY[i] = -speedY[i];
-                    speedX[i] = -speedX[i];
-                    speedY[j] = -speedY[j];
-                    speedX[j] = -speedX[j];
-                }
-            
+            if (distanceCircles = 100) {
+                speedY[i] = -speedY[i];
+                speedX[i] = -speedX[i];
+                speedY[j] = -speedY[j];
+                speedX[j] = -speedX[j];
+            }
+
         }
 
     }
@@ -67,13 +67,11 @@ function reflectionCirclesFromEachOther() {
 
 function allCircle() {
     table()
+    lineOfBigCircles()
+    drawBigCircles()
+    moveCircle()
     reflectionCirclesFromEachOther()
     reflectionCirclesFromWindow()
-    lineOfBigCircles();
-    drawBigCircles();
-
-    moveCircle()
-
 }
 
 function randomSpeedCircle() {
