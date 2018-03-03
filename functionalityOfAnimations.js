@@ -125,7 +125,7 @@ function lineOfBigCircles() {
                 if (lengthOfLine <= (circles[i].radius + distanceFromCircles)) {
                     context.moveTo(pointSecond.x, pointSecond.y);
                     context.lineTo(pointFirst.x, pointFirst.y);
-                    context.strokeStyle = "rgba(17, 95, 251," + opacityOfLine + ")";
+                    context.strokeStyle = "rgba(255, 165, 186," + opacityOfLine + ")";
                     context.stroke();
                 }
             }
@@ -140,10 +140,10 @@ function drawCircles() {
         var x = circle.point.x;
         var y = circle.point.y;
         var radius = circle.radius;
-        
+
         context.beginPath();
         context.arc(x, y, radius, 0 * Math.PI, 2 * Math.PI);
-        context.fillStyle = "blue";
+        context.fillStyle = "#FFA5BA";
         context.fill();
         context.beginPath();
         context.arc(x, y, radius - 10, 0, 2 * Math.PI);
