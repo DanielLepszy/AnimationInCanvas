@@ -6,4 +6,4 @@ How to Open :
 
 Choose amount of circles in animation by slider located on top window
 
-<img src="AnimationCanvas.png" width="100">
+<img src="Images/AnimationCanvas.png" width="100">
