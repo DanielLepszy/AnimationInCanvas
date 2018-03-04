@@ -5,3 +5,5 @@ How to Open :
 ---------------------- Enjoy --------------------------</br>
 
 Choose amount of circles in animation by slider located on top window
+
+![] (%20AnimationCanvas.png)
