@@ -15,6 +15,7 @@ var context = canvas.getContext("2d");
 
 var slider = document.getElementById("myRange");
 var sliderValue = slider.value;
+var refreshIntervalId;
 var output = document.getElementById("demo");
 output.innerHTML = slider.value;
 
@@ -28,23 +29,35 @@ const BIG_SIZE = 50;
 const MEDIUM_SIZE = 40;
 const SMALL_SIZE = 30;
 const ANIMATION_SPEED = 18;
-var AMOUNT_OF_CIRCLES = sliderValue;
+var AMOUNT_OF_CIRCLES = slider.value;
 
 
 var circles = [];
 var speedX = [];
 var speedY = [];
 
-slider.oninput = function() {
+slider.oninput = function () {
     output.innerHTML = this.value;
-  }
+}
 
+setInterval(showNewCircleOnWindow, ANIMATION_SPEED);
+
+function showNewCircleOnWindow() {
+    if (sliderValue != slider.value) {
+        clearInterval(refreshIntervalId);
+        sliderValue = slider.value
+        AMOUNT_OF_CIRCLES = sliderValue;
+        circles = [];
+        drawFieldOfCanvas()
+        showCircleOnWindow();
+    }
+}
 showCircleOnWindow();
 
 function showCircleOnWindow() {
     createCircles()
     randomSpeedCircle()
-    setInterval(startAnimation, ANIMATION_SPEED);
+    refreshIntervalId = setInterval(startAnimation, ANIMATION_SPEED);
 }
 
 function createCircles() {
@@ -61,12 +74,14 @@ function createCircles() {
 }
 
 function startAnimation() {
+    sliderValue2 = slider.value;
     drawFieldOfCanvas()
     lineOfBigCircles()
     drawCircles()
     moveCircle()
     circlesCollision()
     circleAndWindowCollision()
+
 }
 
 function randomSizeOfCircle() {
