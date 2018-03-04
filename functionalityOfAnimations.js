@@ -21,9 +21,9 @@ const CANVAS_HEIGHT = canvas.height
 
 const BIG_SIZE = 50;
 const MEDIUM_SIZE = 40;
-const SMALL_SIZE = 25;
-const ANIMATION_SPEED = 1;
-var AMOUNT_OF_CIRCLES = 20;
+const SMALL_SIZE = 30;
+const ANIMATION_SPEED = 0.5;
+var AMOUNT_OF_CIRCLES = 25;
 
 
 var circles = [];
@@ -43,10 +43,11 @@ function createCircles() {
     for (var i = 0; i <= AMOUNT_OF_CIRCLES - 1; i++) {
         const radius = randomSizeOfCircle();
         var point = getPoint(radius);
-        while (!isPointCorrect(point, radius)) { // FIX ME ---- IT CAN BE INFITINE LOOP WHEN IS NO PLACE ON SCREEN
+        var circle = new Circle(point, radius);
+        while (!isCirclePositionValid(circle)) { // FIX ME ---- IT CAN BE INFITINE LOOP WHEN IS NO PLACE ON SCREEN
             point = getPoint();
+            circle = new Circle(point, radius);
         }
-        const circle = new Circle(point, radius)
         circles.push(circle)
     }
 }
@@ -74,22 +75,21 @@ function randomSizeOfCircle() {
 }
 
 function getPoint(radius) {
-    const circleX = Math.floor(Math.random() * (1536 - 2 * radius) + radius);
-    const circleY = Math.floor(Math.random() * (864 - 2 * radius) + radius);
+    const circleX = Math.floor(Math.random() * (canvas.width - 2 * radius) + radius);
+    const circleY = Math.floor(Math.random() * (canvas.height - 2 * radius) + radius);
     const point = new CirclePoint(circleX, circleY)
     return point;
 }
 
-
-function checkIfCirclesOverlap(pointA, pointB, radius) {
-    return Math.hypot(pointA.x - pointB.x, pointA.y - pointB.y) <= (radius + radius);
+function checkCollision(circleA, circleB) {
+    return Math.hypot(circleA.point.x - circleB.point.x, circleA.point.y - circleB.point.y) <= (circleA.radius + circleB.radius);
 }
 
-function isPointCorrect(point, radius) {
+function isCirclePositionValid(circle) {
     var isCorrect = true
     for (let index = 0; index < circles.length; index++) {
-        const circle = circles[index];
-        if (checkIfCirclesOverlap(point, circle.point, radius)) {
+        const circleOnMap = circles[index];
+        if (checkCollision(circle, circleOnMap)) {
             isCorrect = false;
             break;
         }
@@ -181,13 +181,12 @@ function circleAndWindowCollision() {
 function circlesCollision() {
     for (var i = 0; i < circles.length; i++) {
         for (var j = i + 1; j < circles.length; j++) {
-            var distanceCircles = Math.sqrt(Math.pow(circles[i].point.x - circles[j].point.x, 2) + Math.pow(circles[i].point.y - circles[j].point.y, 2));
-            if (distanceCircles <= circles[i].radius + circles[j].radius) {
+
+            if (checkCollision(circles[i], circles[j])) {
                 speedY[i] = -speedY[i];
                 speedX[i] = -speedX[i];
                 speedY[j] = -speedY[j];
                 speedX[j] = -speedX[j];
-
             }
         }
     }
