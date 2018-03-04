@@ -13,6 +13,11 @@ class CirclePoint {
 var canvas = document.getElementById("animationCanvas");
 var context = canvas.getContext("2d");
 
+var slider = document.getElementById("myRange");
+var sliderValue = slider.value;
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -22,14 +27,17 @@ const CANVAS_HEIGHT = canvas.height
 const BIG_SIZE = 50;
 const MEDIUM_SIZE = 40;
 const SMALL_SIZE = 30;
-const ANIMATION_SPEED = 0.5;
-var AMOUNT_OF_CIRCLES = 25;
+const ANIMATION_SPEED = 18;
+var AMOUNT_OF_CIRCLES = sliderValue;
 
 
 var circles = [];
 var speedX = [];
 var speedY = [];
 
+slider.oninput = function() {
+    output.innerHTML = this.value;
+  }
 
 showCircleOnWindow();
 
