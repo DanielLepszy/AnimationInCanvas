@@ -1,7 +1,7 @@
 How to Open :
-
----------------- Download ZIP files --------------------
------ Open index.html file by your default browser -----
--------------------- Enjoy -----------------------------
+</br>
+---------------- Download ZIP files --------------------</br>
+----- Open index.html file by your default browser -----</br>
+-------------------- Enjoy -----------------------------</br>
 
 Choose amount of circles in animation by slider located on top window
