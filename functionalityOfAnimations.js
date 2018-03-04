@@ -76,7 +76,7 @@ function createCircles() {
 function startAnimation() {
     sliderValue2 = slider.value;
     drawFieldOfCanvas()
-    lineOfBigCircles()
+    drawLinesBetweenCircles()
     drawCircles()
     moveCircle()
     circlesCollision()
@@ -132,7 +132,7 @@ function drawFieldOfCanvas() {
     context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 }
 
-function lineOfBigCircles() {
+function drawLinesBetweenCircles() {
     for (var i = 0; i <= circles.length - 2; i++) {
         for (var j = 1; j <= circles.length - 1; j++) {
 
